@@ -88,12 +88,16 @@ gallery.addEventListener('click', function (event) {
   if (event.target.nodeName !== 'IMG') {
     return;
   }
-  const instance = basicLightbox.create(`
-    <div class="modal">
-        img src="${source}" width="1112" height="640">
-    </div>
-`);
+  const instance = basicLightbox.create(
+    `<div class="modal">
+        <img src="${source}" width="1112" height="640">
+    </div>`,
+    {
+      onShow: instance => {
+        instance.element().addEventListener('click', () => instance.close());
+      },
+    }
+  );
 
   instance.show();
-  instance.close();
 });
